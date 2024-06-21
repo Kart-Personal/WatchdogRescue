@@ -1,18 +1,19 @@
 #!/bin/bash
 
 # Variables
-SCRIPT_URL="https://raw.githubusercontent.com/kart-personal/WatchdogRescue/main/restart_windowserver.sh"
-CONFIG_URL="https://raw.githubusercontent.com/kart-personal/WatchdogRescue/main/restart_windowserver.conf"
-PLIST_URL="https://raw.githubusercontent.com/kart-personal/WatchdogRescue/main/com.restart.windowserver.plist"
-
-SCRIPT_PATH="/usr/local/bin/restart_windowserver.sh"
-CONFIG_PATH="/usr/local/etc/restart_windowserver.conf"
+SCRIPT_PATH="/usr/local/watchdogrescue/restart_windowserver.sh"
+CONFIG_PATH="/usr/local/watchdogrescue/restart_windowserver.conf"
 PLIST_PATH="$HOME/Library/LaunchAgents/com.restart.windowserver.plist"
 
 # Function to log messages
 log_message() {
     echo "$(date): $1"
 }
+
+# Download URLs
+SCRIPT_URL="https://raw.githubusercontent.com/kart-personal/WatchdogRescue/main/restart_windowserver.sh"
+CONFIG_URL="https://raw.githubusercontent.com/kart-personal/WatchdogRescue/main/restart_windowserver.conf"
+PLIST_URL="https://raw.githubusercontent.com/kart-personal/WatchdogRescue/main/com.restart.windowserver.plist"
 
 # Download the restart_windowserver.sh script
 log_message "Downloading the restart_windowserver.sh script..."

@@ -1,9 +1,4 @@
-#!/bin/bash
-
-# Variables
-SCRIPT_PATH="/usr/local/bin/restart_windowserver.sh"
-CONFIG_PATH="/usr/local/etc/restart_windowserver.conf"
-PLIST_PATH="$HOME/Library/LaunchAgents/com.restart.windowserver.plist"
+CONFIG_PATH="/usr/local/watchdogrescue/restart_windowserver.conf"
 
 # Function to log messages
 log_message() {
@@ -11,7 +6,7 @@ log_message() {
 }
 
 # Check if necessary files exist
-if [ ! -f "restart_windowserver.sh" ] || [ ! -f "restart_windowserver.conf" ] || [ ! -f "com.restart.windowserver.plist" ]; then
+if [ ! -f "restart_windowserver.sh" ] || [ ! -f "$CONFIG_PATH" ] || [ ! -f "com.restart.windowserver.plist" ]; then
     log_message "Error: Required files not found in the current directory."
     exit 1
 fi

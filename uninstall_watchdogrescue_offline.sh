@@ -2,7 +2,7 @@
 
 # Variables
 SCRIPT_PATH="/usr/local/bin/restart_windowserver.sh"
-CONFIG_PATH="/usr/local/etc/restart_windowserver.conf"
+CONFIG_PATH="/usr/local/watchdogrescue/restart_windowserver.conf"
 PLIST_PATH="$HOME/Library/LaunchAgents/com.restart.windowserver.plist"
 
 # Function to log messages
