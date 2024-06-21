@@ -1,5 +1,5 @@
-# UnfreezeMac
-Script to restart WindowServer process a that crashed due to GPU Peaking or something like that
+# WatchdogRescue
+WatchdogRescue is a robust monitoring and recovery script for macOS that ensures the stability of the WindowServer process. By dynamically configuring monitoring intervals and retry attempts, WatchdogRescue provides intelligent resource management and detailed logging to prevent system crashes due to GPU-related issues. I absolutely used ChatGPT to write this sentence.
 
 `sudo nano /usr/local/bin/restart_windowserver.sh`
 
