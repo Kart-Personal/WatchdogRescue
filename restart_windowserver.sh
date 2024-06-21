@@ -13,10 +13,25 @@ fi
 CHECK_INTERVAL=${CHECK_INTERVAL:-60}
 MAX_RETRIES=${MAX_RETRIES:-3}
 LOG_FILE=${LOG_FILE:-/tmp/restart_windowserver.log}
+MAX_LOG_SIZE=${MAX_LOG_SIZE:-1048576}
+LOG_BACKUP_COUNT=${LOG_BACKUP_COUNT:-5}
 
 # Function to log messages
 log_message() {
     echo "$(date): $1" >> "$LOG_FILE"
+}
+
+# Function to rotate logs
+rotate_logs() {
+    if [ -f "$LOG_FILE" ] && [ $(stat -c%s "$LOG_FILE") -ge $MAX_LOG_SIZE ]; then
+        for ((i=$LOG_BACKUP_COUNT-1; i>=0; i--)); do
+            if [ -f "$LOG_FILE.$i" ]; then
+                mv "$LOG_FILE.$i" "$LOG_FILE.$((i+1))"
+            fi
+        done
+        mv "$LOG_FILE" "$LOG_FILE.0"
+        touch "$LOG_FILE"
+    fi
 }
 
 # Function to send a desktop notification
@@ -82,6 +97,10 @@ check_and_restart_windowserver() {
     fi
 }
 
+# Rotate logs before starting
+rotate_logs
+
+# Initial check and restart if needed
 check_and_restart_windowserver
 
 # Schedule the script to run again after CHECK_INTERVAL seconds
