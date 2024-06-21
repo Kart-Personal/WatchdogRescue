@@ -10,11 +10,6 @@ log_message() {
     echo "$(date): $1"
 }
 
-# Download URLs
-SCRIPT_URL="https://raw.githubusercontent.com/kart-personal/WatchdogRescue/main/restart_windowserver.sh"
-CONFIG_URL="https://raw.githubusercontent.com/kart-personal/WatchdogRescue/main/restart_windowserver.conf"
-PLIST_URL="https://raw.githubusercontent.com/kart-personal/WatchdogRescue/main/com.restart.windowserver.plist"
-
 # Function to download files
 download_file() {
     local url=$1
@@ -52,6 +47,27 @@ chmod +x "$SCRIPT_PATH"
 if [ $? -ne 0 ]; then
     log_message "Failed to make the script executable."
     exit 1
+fi
+
+# Check if plist file exists, if not, create it
+if [ ! -f "$PLIST_PATH" ]; then
+    log_message "Creating the plist file..."
+    cat << EOF > "$PLIST_PATH"
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.restart.windowserver</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/watchdogrescue/restart_windowserver.sh</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
+EOF
 fi
 
 # Load the plist file to set up the launch agent
