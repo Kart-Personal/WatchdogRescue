@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.restart.windowserver</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/restart_windowserver.sh</string>
+    </array>
+    <key>StartInterval</key>
+    <integer>60</integer>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>StandardErrorPath</key>
+    <string>/tmp/restart_windowserver.log</string>
+    <key>StandardOutPath</key>
+    <string>/tmp/restart_windowserver.log</string>
+</dict>
+</plist>
