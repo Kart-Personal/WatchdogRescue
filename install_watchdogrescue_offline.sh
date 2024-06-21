@@ -10,9 +10,15 @@ log_message() {
     echo "$(date): $1"
 }
 
+# Check if necessary files exist
+if [ ! -f "restart_windowserver.sh" ] || [ ! -f "restart_windowserver.conf" ] || [ ! -f "com.restart.windowserver.plist" ]; then
+    log_message "Error: Required files not found in the current directory."
+    exit 1
+fi
+
 # Copy the restart_windowserver.sh script
 log_message "Copying the restart_windowserver.sh script..."
-cp ./restart_windowserver.sh "$SCRIPT_PATH"
+cp restart_windowserver.sh "$SCRIPT_PATH"
 if [ $? -ne 0 ]; then
     log_message "Failed to copy the script."
     exit 1
@@ -28,7 +34,7 @@ fi
 
 # Copy the configuration file
 log_message "Copying the configuration file..."
-cp ./restart_windowserver.conf "$CONFIG_PATH"
+cp restart_windowserver.conf "$CONFIG_PATH"
 if [ $? -ne 0 ]; then
     log_message "Failed to copy the configuration file."
     exit 1
@@ -42,7 +48,7 @@ fi
 
 # Copy the plist file
 log_message "Copying the plist file..."
-cp ./com.restart.windowserver.plist "$PLIST_PATH"
+cp com.restart.windowserver.plist "$PLIST_PATH"
 if [ $? -ne 0 ]; then
     log_message "Failed to copy the plist file."
     exit 1
