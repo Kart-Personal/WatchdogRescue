@@ -13,8 +13,8 @@ fi
 CHECK_INTERVAL=${CHECK_INTERVAL:-60}
 MAX_RETRIES=${MAX_RETRIES:-3}
 LOG_FILE=${LOG_FILE:-/tmp/restart_windowserver.log}
-MAX_LOG_SIZE=${MAX_LOG_SIZE:-1048576}
-LOG_BACKUP_COUNT=${LOG_BACKUP_COUNT:-5}
+MAX_LOG_SIZE=${MAX_LOG_SIZE:-1048576}  # Maximum log file size in bytes (default: 1MB)
+LOG_BACKUP_COUNT=${LOG_BACKUP_COUNT:-5}  # Number of log backups to keep (default: 5)
 
 # Function to log messages
 log_message() {
@@ -87,22 +87,4 @@ check_and_restart_windowserver() {
                 return
             else
                 log_message "Attempt $((retries + 1)) failed to restart WindowServer."
-                retries=$((retries + 1))
-            fi
-        done
-        log_message "Failed to restart WindowServer after $MAX_RETRIES attempts."
-        send_notification "Failed to restart WindowServer after $MAX_RETRIES attempts."
-    else
-        log_message "WindowServer is responsive."
-    fi
-}
-
-# Rotate logs before starting
-rotate_logs
-
-# Initial check and restart if needed
-check_and_restart_windowserver
-
-# Schedule the script to run again after CHECK_INTERVAL seconds
-CRON_JOB="*/$CHECK_INTERVAL * * * * /usr/local/bin/restart_windowserver.sh"
-(crontab -l | grep -v -F "$CRON_JOB"; echo "$CRON_JOB") | crontab -
+    
